@@ -134,11 +134,9 @@ public final class ThreadTest extends TestCase {
                 doSomething();
             }
             public void doSomething() {
-                for (int i = 0; i < 20;) {
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException ignored) {
-                    }
+                try {
+                    Thread.sleep(4000);
+                } catch (InterruptedException ignored) {
                 }
             }
         };
@@ -150,6 +148,7 @@ public final class ThreadTest extends TestCase {
         // Expect to find MyThread.doSomething in the trace
         assertTrue(trace.getClassName().contains("ThreadTest")
                 && trace.getMethodName().equals("doSomething"));
+        t1.join();
     }
 
     public void testGetAllStackTracesIncludesAllGroups() throws Exception {
